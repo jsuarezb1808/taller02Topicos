@@ -1,6 +1,7 @@
 from flask import Flask 
 import os
 import random
+import platform
 from model import pokenea
 from flask_restful import Resource, Api
 
@@ -25,7 +26,7 @@ pokeneas.append(pokenea(40,"Venegas","1.75","motero:puede acelerar la moto sin r
 class frases(Resource):
     def get(self):
         nea = random.choice(pokeneas)
-        container_id = os.uname()[1] 
+        container_id = platform.node() 
         data={
             "imagen":nea.imagen,
             "frase":nea.frase,
@@ -36,18 +37,18 @@ class frases(Resource):
 class neas(Resource):
     def get(self):
         nea = random.choice(pokeneas)
-        container_id = os.uname()[1] 
-        data={
-            "id":nea.id,
-            "nombre":nea.nombre,
-            "altura":nea.altura,
-            "habilidad":nea.habilidad,
-            "container_id":container_id
+        container_id = platform.node() 
+        data = {
+            "id": nea.id,
+            "nombre": nea.nombre,
+            "altura": nea.altura,
+            "habilidad": nea.habilidad,
+            "container_id": container_id
         }
         return data
 
 api.add_resource(frases, '/frases')
 api.add_resource(neas, '/neas')
 
-if __name__=='__main__': 
+if __name__ == '__main__':
     app.run(debug=True)
