@@ -26,7 +26,7 @@ pokeneas.append(pokenea(40,"Venegas","1.75","motero:puede acelerar la moto sin r
 class frases(Resource):
     def get(self):
         nea = random.choice(pokeneas)
-        container_id = platform.node() 
+        container_id = os.uname()[1]
         data={
             "imagen":nea.imagen,
             "frase":nea.frase,
@@ -37,7 +37,7 @@ class frases(Resource):
 class neas(Resource):
     def get(self):
         nea = random.choice(pokeneas)
-        container_id = platform.node() 
+        container_id = os.uname()[1]
         data = {
             "id": nea.id,
             "nombre": nea.nombre,
